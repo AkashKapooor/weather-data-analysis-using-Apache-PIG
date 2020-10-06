@@ -19,7 +19,7 @@ winter = FILTER D BY monthT IN ('10','11','12','1','2');
 
 __________________________ Working on summer data 
 
-sum_int = FOREACH summer GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:int);
+sum_int = FOREACH summer GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:float);
 
 sum_del = FOREACH sum_int GENERATE date,month,year,avgtemp;
 
@@ -36,7 +36,7 @@ _________ we can see that we have -99 values propbably in place for missing valu
 
 summer_clean = FILTER summer by avgtempT > '-99';
 
-sum_int = FOREACH summer_clean GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:int);
+sum_int = FOREACH summer_clean GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:float);
 
 sum_del = FOREACH sum_int GENERATE date,month,year,avgtemp;
 
@@ -62,7 +62,7 @@ ____________________ Working on monsoon data
 
 monsoon_clean = FILTER monsoon by avgtempT > '-99';
 
-mon_int = FOREACH monsoon_clean GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:int);
+mon_int = FOREACH monsoon_clean GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:float);
 
 mon_del = FOREACH mon_int GENERATE date,month,year,avgtemp;
 
@@ -89,7 +89,7 @@ ___________ analysis for winter data
 
 winter_clean = FILTER winter by avgtempT > '-99';
 
-win_int = FOREACH winter_clean GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:int);
+win_int = FOREACH winter_clean GENERATE *,  dateT as (date:int),monthT as (month:int),yearT as (year:int),avgtempT as (avgtemp:float);
 
 win_del = FOREACH win_int GENERATE date,month,year,avgtemp;
 
@@ -125,39 +125,3 @@ abtemp = foreach abnormal_days generate avgtempT;
 abgrouped = GROUP abtemp ALL;
 
 count = foreach abgrouped generate COUNT(abtemp.avgtempT);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
